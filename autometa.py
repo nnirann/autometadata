@@ -55,8 +55,6 @@ def convert_file_name_to_searchable_term(file):
 
 with open('api_key') as f:
     api_key = f.readline()
-
-print(api_key)
      
 def search_genius(search_term):
     url = f'https://api.genius.com/search?q={search_term}&page=1&per_page=3&access_token={api_key}'
