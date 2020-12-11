@@ -179,7 +179,7 @@ for file_info in files_without_proper_metadata_shown:
 
         print(f'\nIs {file} : \n- {song_title}\n- by {artist}')
 
-        is_correct = input('[y / n] ') in ('y','')
+        is_correct = input('[y / n] ') not in ('n','')
         
         print()
 
@@ -224,7 +224,7 @@ for file in files_without_metadata_received:
         album_art = album_art_list[i]
 
         print(f'\nIs {file} : \n- {song_title}\n- by {artist}')
-        is_correct = input('[y / n] ') in ('y','')
+        is_correct = input('[y / n] ') not in ('n','')
         print()
         
         if is_correct: 
@@ -261,7 +261,7 @@ for file_info in metadata['in_use']:
             change_file_name() 
 
             print()
-            
+
     except Exception as e:
         print('An error occured with',file_info[0],'. Error -',e)
         continue
