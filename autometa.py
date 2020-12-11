@@ -73,7 +73,6 @@ def get_metadata_from_response(response):
 
 def apply_metadata(file_name):
     print('Applying Metadata for',file_name)
-
     #apply song title
     audio_file.tag.title = song_title
     print('- Applied Title -',song_title)
@@ -245,20 +244,26 @@ print('-'*50)
 # applying the metadata to files
 
 for file_info in metadata['in_use']:
-    # get the audio file
-    path_to_file = f'{location}/{file_info[0]}'
-    audio_file = eyed3.load(path_to_file)
+    try:
+        # Get the required metadata from list
+        song_title = file_info[1]
+        artist = file_info[2]
+        album_art = file_info[3]
 
-    # Get the required metadata from list
-    song_title = file_info[1]
-    artist = file_info[2]
-    album_art = file_info[3]
+        if song_title != '' and artist != '': 
+            # get the audio file
+            path_to_file = f'{location}/{file_info[0]}'
+            audio_file = eyed3.load(path_to_file)
 
-    apply_metadata(file_info[0])
+            apply_metadata(file_info[0])
 
-    audio_file.tag.save(version=eyed3.id3.ID3_V2_3)
-    change_file_name() 
+            audio_file.tag.save(version=eyed3.id3.ID3_V2_3)
+            change_file_name() 
 
-    print()
+            print()
+            
+    except Exception as e:
+        print('An error occured with',file_info[0],'. Error -',e)
+        continue
 
 print('-'*19,'END','-'*19)
